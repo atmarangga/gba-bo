@@ -2,6 +2,8 @@
   "name": "gba-bo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://159.223.43.187:9000/",
+  "proxy": "http://159.223.43.187:9000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",

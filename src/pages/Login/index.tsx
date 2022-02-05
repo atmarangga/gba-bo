@@ -1,13 +1,21 @@
 import React from "react";
 import { Layout, Input, Card, Form, Button } from "antd";
+import LoginService from '../../services/loginService';
 
 export default function LoginPage() {
-  
+
   const { Header, Content } = Layout;
+
+  async function handleLogin(data: { username: string, password: string }) {
+    console.log('data :', data);
+    const result = await LoginService.login(data);
+    console.log('result :: ', result)
+  }
+
   return (
     <Layout>
       <Header>
-        <h2 style={{color: '#fff'}}>Login Page</h2>
+        <h2 style={{ color: '#fff' }}>Login Page</h2>
       </Header>
       <Layout>
         <Content>
@@ -26,10 +34,8 @@ export default function LoginPage() {
               initialValues={{
                 remember: true,
               }}
-              onFinish={() => {
-                console.log("Done");
-              }}
-              onFinishFailed={() => {}}
+              onFinish={handleLogin}
+              onFinishFailed={() => { }}
               autoComplete='off'
             >
               <Form.Item
