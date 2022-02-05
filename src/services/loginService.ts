@@ -1,3 +1,4 @@
+import { _IS_ERROR, _TOKEN } from "../constants";
 import endpoints from "./endpoints";
 import ServiceClass from "./ServiceClass";
 
@@ -13,10 +14,15 @@ class LoginService extends ServiceClass {
             email: request.username, password: request.password
         }
         );
-        console.log({response});
+        const { data, isError, errorMsg } = response;
+        if (isError && isError === _IS_ERROR.No) {
+            const { token } = data;
+            localStorage.setItem(_TOKEN, token);
+        } else {
+            localStorage.clear();
+        }
         return response;
     }
 }
-
 
 export default new LoginService();
