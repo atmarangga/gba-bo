@@ -14,12 +14,13 @@ class LoginService extends ServiceClass {
             email: request.username, password: request.password
         }
         );
-        const { data, isError, errorMsg } = response;
+        const { data, isError } = response;
         if (isError && isError === _IS_ERROR.No) {
             const { token } = data;
             localStorage.setItem(_TOKEN, token);
         } else {
             localStorage.clear();
+
         }
         return response;
     }

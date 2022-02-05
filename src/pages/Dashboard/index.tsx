@@ -1,19 +1,15 @@
 import React from "react";
-import { useLocation, Route, Routes, Link } from 'react-router-dom'
+import {  Route, Routes, Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
   ShopOutlined,
-  TeamOutlined,
+
   UserOutlined,
   UploadOutlined,
-  VideoCameraOutlined,
+
 } from '@ant-design/icons';
 
 import colors from '../../constants/colors';
-import Text from "antd/lib/typography/Text";
 
 function DashboardEmpty() {
   return (
@@ -32,7 +28,7 @@ function DashboardMaster() {
 }
 
 export default function Dashboard() {
-  const { key } = useLocation();
+  
   const { Header, Content, Sider } = Layout;
   return (
     <Layout>
@@ -56,10 +52,19 @@ export default function Dashboard() {
             <Menu.Item key="1" icon={<UserOutlined />}>
               <Link to="/">Home</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              <Link to={"/master"}> Master Data </Link>
-            </Menu.Item>
-            <Menu.Item key="8" icon={<ShopOutlined />}>
+            <Menu.SubMenu key="master1" icon={<UploadOutlined />} title="Master">
+              <Menu.Item key="country">
+                <Link to={"/countries"}> Country</Link>
+              </Menu.Item>
+              <Menu.Item key="branch">
+                <Link to={"/branch"}> Branch</Link>
+              </Menu.Item>
+              <Menu.Item key="address"><Link to={"/address"}>Address</Link></Menu.Item>
+              <Menu.Item key="church">
+                <Link to={"/branch"}>Church</Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.Item key="logout" icon={<ShopOutlined />}>
               Logout
             </Menu.Item>
           </Menu>
@@ -69,8 +74,9 @@ export default function Dashboard() {
           backgroundColor: '#fff'
         }}>
           <Routes>
-            <Route path='*' element={ <DashboardEmpty />} />
-            <Route path="/master" element={<DashboardMaster />} />``
+
+            <Route path="/countries" element={<DashboardMaster />} />``
+            <Route path='*' element={<DashboardEmpty />} />
           </Routes>
 
         </Content>
