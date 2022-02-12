@@ -1,7 +1,7 @@
 import { _IS_ERROR, _TOKEN } from "../constants";
 import endpoints from "./endpoints";
 import ServiceClass from "./ServiceClass";
-
+import {IS_DEV} from '../constants/config';
 export interface LoginRequest {
     username: string;
     password: string;

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import Text from "antd/lib/typography/Text";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Input, Card, Form, Button } from "antd";
 import LoginService from '../../services/loginService';
-import { _IS_ERROR } from "../../constants";
-import Text from "antd/lib/typography/Text";
+import { _IS_ERROR, _TOKEN } from "../../constants";
+import { IS_DEV } from '../../constants/config'
+
+
 
 
 export default function LoginPage() {
@@ -19,17 +22,24 @@ export default function LoginPage() {
     changeError(false)
     changeLoading(true);
     changeMessage('');
-    const result = await LoginService.login(data);
-    const { errorMsg, isError } = result;
-    if (isError === _IS_ERROR.No) {
+    if (IS_DEV) {
       window.location.reload();
-      console.log('Login sukses.', location.pathname);
+      localStorage.setItem(_TOKEN, "tokenRandom");
       navigation('/', { replace: true });
-      
     } else {
-      changeMessage(errorMsg);
-      changeError(true);
+      const result = await LoginService.login(data);
+      const { errorMsg, isError } = result;
+      if (isError === _IS_ERROR.No) {
+        window.location.reload();
+        console.log('Login sukses.', location.pathname);
+        navigation('/', { replace: true });
+
+      } else {
+        changeMessage(errorMsg);
+        changeError(true);
+      }
     }
+
     changeLoading(false);
   }
 

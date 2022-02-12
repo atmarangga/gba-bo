@@ -1,34 +1,25 @@
 import React from "react";
-import {  Route, Routes, Link } from 'react-router-dom'
+import { Route, Routes, Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 import {
   ShopOutlined,
-
   UserOutlined,
   UploadOutlined,
 
 } from '@ant-design/icons';
-
+import { MasterCountry } from "..";
 import colors from '../../constants/colors';
 
 function DashboardEmpty() {
   return (
-    <div>
-      <h2>Welcome</h2>
-    </div>
-  )
-}
-
-function DashboardMaster() {
-  return (
-    <div>
-      <h2>Dashboard Master</h2>
+    <div style={{ display: "flex", padding: 20 }}>
+      <h2>Welcome - Admin</h2>
     </div>
   )
 }
 
 export default function Dashboard() {
-  
+
   const { Header, Content, Sider } = Layout;
   return (
     <Layout>
@@ -75,7 +66,7 @@ export default function Dashboard() {
         }}>
           <Routes>
 
-            <Route path="/countries" element={<DashboardMaster />} />``
+            <Route path={'/countries'} element={<MasterCountry />} />
             <Route path='*' element={<DashboardEmpty />} />
           </Routes>
 
