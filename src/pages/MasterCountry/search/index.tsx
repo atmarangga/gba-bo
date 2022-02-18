@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Space, Table, Button } from 'antd';
 import EditCountryForm from '../edit'
 import AddCountryForm from '../add';
@@ -18,12 +18,12 @@ export default function MasterCountryListing() {
     }, [])
 
     const asyncCallService = async () => {
-        const getData = await CountryService.getAll({})
+        const getData = await CountryService.getAll();
         setAllData(getData)
     }
 
     const handleDelete = async (data: MasterCountryData) => {
-        const deleteData = await CountryService.delete(data)
+        await CountryService.delete(data)
     }
 
     return (

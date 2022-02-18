@@ -1,4 +1,3 @@
-import { _IS_ERROR, _TOKEN } from "../constants";
 import endpoints from "./endpoints";
 import ServiceClass from "./ServiceClass";
 export interface MasterDataCountry {
@@ -6,7 +5,6 @@ export interface MasterDataCountry {
     phoneCode: string;
     id: string;
 }
-export interface SearchRequest { }
 
 export interface AddRequest {
     name: string;
@@ -17,7 +15,7 @@ export interface DeleteRequest extends MasterDataCountry { }
 export interface EditRequest extends MasterDataCountry { }
 
 class CountryService extends ServiceClass {
-    getAll = async (request: SearchRequest) => {
+    getAll = async () => {
         const response = await this.callService(
             endpoints.masterCountry.getAll,
             "GET",

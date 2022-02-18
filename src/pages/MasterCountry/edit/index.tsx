@@ -34,7 +34,7 @@ export default function EditMasterCountry(props: EditMasterCountryProps) {
     async function handleSubmit(data: { name: string, phoneCode: string, id: string }) {
         setLoading(true)
         try {
-            const dataResponse = countryService.edit(data)
+            await countryService.edit(data)
             setLoading(false);
         } catch (err) {
             console.log('error : ', err)

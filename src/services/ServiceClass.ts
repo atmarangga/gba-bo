@@ -12,6 +12,7 @@ export default class ServiceClass {
                 mode: 'cors',
                 body: bodyData,
                 headers: {
+
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': "*"
                 }
@@ -40,7 +41,7 @@ export default class ServiceClass {
                 if (response_data) {
                     return response_data.data
                 } else {
-                    throw "error"
+                    return { err: 'Y' }
                 }
             } else {
                 const result = await fetch(`${this.prefixUrl}${myUrl}`, {
@@ -62,7 +63,7 @@ export default class ServiceClass {
             }
             return {
                 isError: 'Y',
-                msg: 'err'
+                msg: err
             };
         }
     }
