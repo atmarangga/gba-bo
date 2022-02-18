@@ -52,7 +52,6 @@ export default class ServiceClass {
                     }
                 })
                 const response_data = await result.json();
-                console.log('response data : ', response_data)
                 return response_data;
             }
 

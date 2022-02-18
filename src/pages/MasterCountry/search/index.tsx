@@ -23,9 +23,7 @@ export default function MasterCountryListing() {
     }
 
     const handleDelete = async (data: MasterCountryData) => {
-        console.log('selected Country : ', data);
         const deleteData = await CountryService.delete(data)
-        console.log('deletedData :: ', deleteData);
     }
 
     return (

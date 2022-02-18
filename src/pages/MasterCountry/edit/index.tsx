@@ -1,7 +1,6 @@
 import { Form, Card, Input, Space, Button } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import React, { useEffect, useMemo, useState } from 'react';
-import { isConstructorDeclaration } from 'typescript';
+import React, { useEffect, useState } from 'react';
 import countryService from '../../../services/countryService';
 
 interface MasterCountryData {
@@ -23,6 +22,7 @@ export default function EditMasterCountry(props: EditMasterCountryProps) {
     const handleEdit = () => {
         setEdit(true);
     }
+
     useEffect(() => {
         form.setFieldsValue({
             id: props.data.id,
@@ -35,7 +35,6 @@ export default function EditMasterCountry(props: EditMasterCountryProps) {
         setLoading(true)
         try {
             const dataResponse = countryService.edit(data)
-            // setTimeout(() => { setLoading(false) }, 2500)
             setLoading(false);
         } catch (err) {
             console.log('error : ', err)

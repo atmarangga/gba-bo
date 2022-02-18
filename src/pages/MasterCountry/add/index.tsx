@@ -10,11 +10,9 @@ export default function AddMasterCountryForm({ AddButton }: AddMasterCountryForm
     const [isLoading, setLoading] = useState(false);
     async function handleSubmit(data: { name: string, phoneCode: string }) {
         setLoading(true)
-        try {
-            console.log({ data });
+        try {            
             const responseAdd = await countryService.add(data)
             setLoading(false);
-            // Handle Kalau Sukses. Pop up ? message snack ?
         } catch (err) {
             console.log('error : ', err)
             setLoading(false)
