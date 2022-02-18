@@ -1,6 +1,8 @@
 import { Form, Card, Input, Space, Button } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useEffect, useMemo, useState } from 'react';
+import { isConstructorDeclaration } from 'typescript';
+import countryService from '../../../services/countryService';
 
 interface MasterCountryData {
     id: string;
@@ -29,10 +31,12 @@ export default function EditMasterCountry(props: EditMasterCountryProps) {
         });
     })
 
-    async function handleSubmit(data: { name: string, code: string }) {
+    async function handleSubmit(data: { name: string, phoneCode: string, id: string }) {
         setLoading(true)
         try {
-            setTimeout(() => { setLoading(false) }, 2500)
+            const dataResponse = countryService.edit(data)
+            // setTimeout(() => { setLoading(false) }, 2500)
+            setLoading(false);
         } catch (err) {
             console.log('error : ', err)
             setLoading(false)

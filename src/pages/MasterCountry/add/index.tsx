@@ -1,23 +1,27 @@
 import { Form, Card, Input, Space, Button } from 'antd';
 import React, { useState } from 'react';
+import countryService from '../../../services/countryService';
 
 interface AddMasterCountryForm {
     AddButton?: any;
 }
 
 export default function AddMasterCountryForm({ AddButton }: AddMasterCountryForm) {
-
     const [isLoading, setLoading] = useState(false);
-    async function handleSubmit(data: { name: string, code: string }) {
+    async function handleSubmit(data: { name: string, phoneCode: string }) {
         setLoading(true)
         try {
-            setTimeout(() => { setLoading(false) }, 2500)
+            console.log({ data });
+            const responseAdd = await countryService.add(data)
+            setLoading(false);
+            // Handle Kalau Sukses. Pop up ? message snack ?
         } catch (err) {
             console.log('error : ', err)
             setLoading(false)
         }
 
     }
+
     return (
         <>
             <Space size={'large'} direction='vertical'>
@@ -38,7 +42,7 @@ export default function AddMasterCountryForm({ AddButton }: AddMasterCountryForm
                             <Input />
                         </Form.Item>
                         <Form.Item label={'Phone Code'}
-                            name={'code'}
+                            name={'phoneCode'}
                             rules={[{
                                 required: true,
                                 message: 'Please Add Phone Code'
@@ -55,10 +59,7 @@ export default function AddMasterCountryForm({ AddButton }: AddMasterCountryForm
                             </Button>
                         </Form.Item>
                     </Form>
-
                 </Card>
-
-
             </Space>
         </>
     );

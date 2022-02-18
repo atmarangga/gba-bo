@@ -28,18 +28,43 @@ export default class ServiceClass {
         try {
             if (!tokenJwt) throw _SESSION_EXPIRED;
             const bodyData = JSON.stringify(body);
-            const result = await fetch(`${this.prefixUrl}${myUrl}`, {
-                method,
-                body: bodyData,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'token': tokenJwt,
+            if (method === "GET") {
+                const result = await fetch(`${this.prefixUrl}${myUrl}`, {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': tokenJwt,
+                    }
+                })
+                const response_data = await result.json();
+                if (response_data) {
+                    return response_data.data
+                } else {
+                    throw "error"
                 }
-            })
-            return result.json;
+            } else {
+                const result = await fetch(`${this.prefixUrl}${myUrl}`, {
+                    method,
+                    body: bodyData,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': tokenJwt,
+                    }
+                })
+                const response_data = await result.json();
+                console.log('response data : ', response_data)
+                return response_data;
+            }
+
         } catch (err) {
             console.log('err : ', err);
-            return err;
+            if (err === _SESSION_EXPIRED) {
+                localStorage.clear();
+            }
+            return {
+                isError: 'Y',
+                msg: 'err'
+            };
         }
     }
 }

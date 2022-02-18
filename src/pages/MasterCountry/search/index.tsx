@@ -1,30 +1,33 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Space, Table, Button } from 'antd';
 import EditCountryForm from '../edit'
 import AddCountryForm from '../add';
 import { TableContext } from '../../../context';
+import CountryService from '../../../services/countryService';
 
-const mockCountry = [
-    {
-        id: '1',
-        name: 'Indonesia',
-        phoneCode: '62'
-    },
-    {
-        id: '2',
-        name: 'Indonesia',
-        phoneCode: '62'
-    },
-    {
-        id: '3',
-        name: 'Indonesia',
-        phoneCode: '62'
-    }
-]
-
+interface MasterCountryData {
+    id: string;
+    phoneCode: string;
+    name: string;
+}
 export default function MasterCountryListing() {
     const [selectedCountry, setSelectedCountry] = useState({ id: '', name: '', phoneCode: '' });
-    console.log('selectedCountry :: ', selectedCountry)
+    const [data, setAllData] = useState([])
+    useEffect(() => {
+        asyncCallService();
+    }, [])
+
+    const asyncCallService = async () => {
+        const getData = await CountryService.getAll({})
+        setAllData(getData)
+    }
+
+    const handleDelete = async (data: MasterCountryData) => {
+        console.log('selected Country : ', data);
+        const deleteData = await CountryService.delete(data)
+        console.log('deletedData :: ', deleteData);
+    }
+
     return (
         <TableContext.Provider value={selectedCountry}>
             <div style={{ padding: 20 }}>
@@ -41,9 +44,9 @@ export default function MasterCountryListing() {
                         }
                     </TableContext.Consumer>}
                 </div>
-                {useMemo(() => <Table
+                <Table
                     key={'table-country'}
-                    dataSource={mockCountry}
+                    dataSource={data}
                     columns={[
                         {
                             title: 'ID',
@@ -67,17 +70,20 @@ export default function MasterCountryListing() {
                                 <Space size="middle" key={'edit-delete-action'}>
                                     <Button
                                         type={'link'}
-                                        key={`${record?.id}-edit-action`}
+                                        key={`rec-edit-action`}
                                         onClick={() => {
                                             setSelectedCountry(record)
                                             console.log('record : ', record)
                                         }}> Edit</Button>
                                     <Button
-                                        type={'link'} key={`${record?.id}-delete`}>Delete</Button>
+                                        onClick={() => {
+                                            handleDelete(record)
+                                        }}
+                                        type={'link'} key={`rec-delete`}>Delete</Button>
                                 </Space>
                             ),
                         },
-                    ]} />, [])}
+                    ]} />
 
             </div>
         </TableContext.Provider>

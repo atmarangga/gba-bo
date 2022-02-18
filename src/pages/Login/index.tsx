@@ -6,9 +6,6 @@ import LoginService from '../../services/loginService';
 import { _IS_ERROR, _TOKEN } from "../../constants";
 import { IS_DEV } from '../../constants/config'
 
-
-
-
 export default function LoginPage() {
 
   const [isError, changeError] = useState(false);
@@ -31,7 +28,6 @@ export default function LoginPage() {
       if (isError === _IS_ERROR.No) {
         window.location.reload();
         navigation('/', { replace: true });
-
       } else {
         changeMessage(errorMsg);
         changeError(true);

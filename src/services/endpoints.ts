@@ -1,6 +1,13 @@
 export default {
-    prefixUrl: 'http://159.223.43.187:9000',
+    prefixUrl: 'http://157.245.204.172:8080',
     login: {
         login: '/login/admin'
+    },
+    masterCountry: {
+        getAll: '/country/getAll',
+        add: '/country/add',
+        delete: '/country/delete',
+        edit: '/country/update'
+
     }
 }
