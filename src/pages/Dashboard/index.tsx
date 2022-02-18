@@ -55,7 +55,10 @@ export default function Dashboard() {
                 <Link to={"/branch"}>Church</Link>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.Item key="logout" icon={<ShopOutlined />}>
+            <Menu.Item key="logout" icon={<ShopOutlined />} onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }} >
               Logout
             </Menu.Item>
           </Menu>

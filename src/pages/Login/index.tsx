@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Text from "antd/lib/typography/Text";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Layout, Input, Card, Form, Button } from "antd";
 import LoginService from '../../services/loginService';
 import { _IS_ERROR, _TOKEN } from "../../constants";
@@ -14,7 +14,6 @@ export default function LoginPage() {
   const [isError, changeError] = useState(false);
   const [message, changeMessage] = useState('');
   const [isLoading, changeLoading] = useState(false);
-  let location = useLocation();
   let navigation = useNavigate();
   const { Header, Content } = Layout;
 
@@ -31,7 +30,6 @@ export default function LoginPage() {
       const { errorMsg, isError } = result;
       if (isError === _IS_ERROR.No) {
         window.location.reload();
-        console.log('Login sukses.', location.pathname);
         navigation('/', { replace: true });
 
       } else {
