@@ -5,3 +5,12 @@ export const TableContext = React.createContext({
     name: '',
     phoneCode: ''
 })
+
+export const BranchTableContext = React.createContext({
+    id: '',
+    name: '',
+});
+
+export const AddressTableContext = React.createContext({
+    
+})

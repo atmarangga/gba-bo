@@ -7,7 +7,7 @@ import {
   UploadOutlined,
 
 } from '@ant-design/icons';
-import { MasterCountry } from "..";
+import { MasterCountry, MasterBranch, MasterAddress, MasterChurch } from "..";
 import colors from '../../constants/colors';
 
 function DashboardEmpty() {
@@ -45,14 +45,14 @@ export default function Dashboard() {
             </Menu.Item>
             <Menu.SubMenu key="master1" icon={<UploadOutlined />} title="Master">
               <Menu.Item key="country">
-                <Link to={"/countries"}> Country</Link>
+                <Link to={"/countries"}>Country</Link>
               </Menu.Item>
               <Menu.Item key="branch">
-                <Link to={"/branch"}> Branch</Link>
+                <Link to={"/branch"}>Branch</Link>
               </Menu.Item>
               <Menu.Item key="address"><Link to={"/address"}>Address</Link></Menu.Item>
               <Menu.Item key="church">
-                <Link to={"/branch"}>Church</Link>
+                <Link to={"/church"}>Church</Link>
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.Item key="logout" icon={<ShopOutlined />} onClick={() => {
@@ -68,8 +68,10 @@ export default function Dashboard() {
           backgroundColor: '#fff'
         }}>
           <Routes>
-
+            <Route path={'/address'} element={<MasterAddress />} />
+            <Route path={'/branch'} element={<MasterBranch />} />
             <Route path={'/countries'} element={<MasterCountry />} />
+            <Route path={'/church'} element={<MasterChurch />} />
             <Route path='*' element={<DashboardEmpty />} />
           </Routes>
 
