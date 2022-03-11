@@ -26,6 +26,9 @@ export default {
         add: '/church/add',
         edit: '/church/edit',
         delete: '/church/delete'
+    },
+    masterAdmin: {
+        add: '/admin/add'
     }
 
 }

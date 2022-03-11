@@ -5,9 +5,10 @@ import {
   ShopOutlined,
   UserOutlined,
   UploadOutlined,
+  FileOutlined
 
 } from '@ant-design/icons';
-import { MasterCountry, MasterBranch, MasterAddress, MasterChurch } from "..";
+import { MasterCountry, MasterBranch, MasterAddress, MasterChurch, Admin, MasterGroup } from "..";
 import colors from '../../constants/colors';
 
 function DashboardEmpty() {
@@ -55,6 +56,16 @@ export default function Dashboard() {
                 <Link to={"/church"}>Church</Link>
               </Menu.Item>
             </Menu.SubMenu>
+
+            <Menu.SubMenu key="admin" icon={<FileOutlined />} title="Admin Config">
+              <Menu.Item key="admin-config"><Link to={'/admin'}>Add Admin</Link></Menu.Item>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu key="group" icon={<FileOutlined />} title="Reading Group">
+              <Menu.Item key="group-add"><Link to={'/group'}>Add Group</Link></Menu.Item>
+            </Menu.SubMenu>
+
+
             <Menu.Item key="logout" icon={<ShopOutlined />} onClick={() => {
               localStorage.clear();
               window.location.reload();
@@ -72,6 +83,8 @@ export default function Dashboard() {
             <Route path={'/branch'} element={<MasterBranch />} />
             <Route path={'/countries'} element={<MasterCountry />} />
             <Route path={'/church'} element={<MasterChurch />} />
+            <Route path={'/admin'} element={<Admin />} />
+            <Route path={'/group'} element={<MasterGroup />} />
             <Route path='*' element={<DashboardEmpty />} />
           </Routes>
 

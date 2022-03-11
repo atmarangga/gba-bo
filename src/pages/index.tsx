@@ -4,4 +4,6 @@ import MasterCountry from './MasterCountry'
 import MasterBranch from './MasterBranch'
 import MasterAddress from './MasterAddress';
 import MasterChurch from './MasterChurch'
-export { Login, Dashboard, MasterCountry, MasterBranch, MasterAddress, MasterChurch };
+import Admin from './Admin';
+import MasterGroup from "./MasterGroup";
+export { Login, Dashboard, MasterCountry, MasterBranch, MasterAddress, MasterChurch, Admin, MasterGroup };

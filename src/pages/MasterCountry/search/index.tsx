@@ -43,6 +43,7 @@ export default function MasterCountryListing() {
                     </TableContext.Consumer>}
                 </div>
                 <Table
+                    
                     key={'table-country'}
                     dataSource={data}
                     columns={[
