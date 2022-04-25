@@ -1,5 +1,5 @@
 export default {
-    prefixUrl: 'http://157.245.204.172:8080',
+    prefixUrl: 'http://167.71.194.152:8080',
     login: {
         login: '/login/admin'
     },
@@ -29,6 +29,19 @@ export default {
     },
     masterAdmin: {
         add: '/admin/add'
+    },
+    masterGroup: {
+        getAll: '/groups',
+        save: '/groups'
+    },
+    masterReadingPlan: {
+        getAll: '/readingPlan',
+        save: '/readingPlan',
+        delete: '/readingPlan/'
+    },
+    masterUser: {
+        getAll: '/userregister',
+        activate: '/userregister'
     }
 
 }

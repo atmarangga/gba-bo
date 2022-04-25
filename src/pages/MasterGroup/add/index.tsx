@@ -1,6 +1,7 @@
 import { Form, Card, Input, Space, Button, Select, DatePicker } from 'antd';
-import React, { useState } from 'react';
-import churchService from '../../../services/churchService';
+import React, { useEffect, useState } from 'react';
+import groupService, { AddGroupRequest } from '../../../services/groupService';
+import readingPlanService from '../../../services/readingPlanService';
 
 interface AddGroupForm {
     onComplete?: Function;
@@ -8,10 +9,37 @@ interface AddGroupForm {
 
 export default function AddMasterGroup({ onComplete }: AddGroupForm) {
     const [isLoading, setLoading] = useState(false);
-    async function handleSubmit(data: { name: string }) {
+    const tempData: any[] = [];
+    const [dataReading, setDataReading] = useState(tempData);
+    useEffect(() => {
+        getAllReadingPlan();
+    }, [])
+
+    async function getAllReadingPlan() {
+        try {
+            const result = await readingPlanService.getAll();
+            console.log('result', result);
+            setDataReading(result);
+
+        } catch (ex) {
+            console.log('err :: ', ex);
+        }
+    }
+
+    async function handleSubmit(data: AddGroupRequest) {
         setLoading(true)
         try {
-            await churchService.add(data)
+            const requestBody = {
+                ...data,
+                startDate: new Date(data.startDate).toISOString(),
+                endDate: new Date(data.endDate).toISOString(),
+                groupType: 'regular'
+            }
+
+            console.log('data', data);
+            console.log('requestBody : ', requestBody);
+            const response = await groupService.add(requestBody);
+            console.log('response : ', response);
             if (onComplete) {
                 onComplete();
             }
@@ -22,10 +50,10 @@ export default function AddMasterGroup({ onComplete }: AddGroupForm) {
         }
     }
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{ padding: 20, width: 500 }}>
             <h2>Add Group</h2>
             <Space size={'large'} direction='vertical'>
-                <Card size='default' >
+                <Card size='default' style={{ minWidth: 500 }} >
                     <Form labelCol={{ span: 10 }}
                         wrapperCol={{ span: 20 }}
                         autoComplete={'off'}
@@ -42,30 +70,32 @@ export default function AddMasterGroup({ onComplete }: AddGroupForm) {
                             <Input />
                         </Form.Item>
                         <Form.Item label={'Group Type'}
-                            name={'group_type'}
+                            name={'groupType'}
                             rules={[{
-                                required: true,
                                 message: 'Please Add Group Type'
                             }]}>
-                            <Select disabled defaultValue={'regular'}>
+                            <Select defaultValue={'regular'}>
                                 <Select.Option value={'regular'}>Regular</Select.Option>
-                                <Select.Option value={'non-regular'}>Regular</Select.Option>
+                                <Select.Option value={'non-regular'} disabled>Non Regular</Select.Option>
                             </Select>
 
                         </Form.Item>
                         <Form.Item label={'Reading Plan'}
-                            name={'reading_plan'}
+                            name={'readingPlanId'}
                             rules={[{
                                 required: true,
                                 message: 'Please Add Reading Plan'
                             }]}>
-                            <Select defaultValue={'2pasal'}>
-                                <Select.Option value={'2pasal'}>2 Pasal / Hari</Select.Option>
-                                <Select.Option value={'3pasal'}>3 Pasal / Hari</Select.Option>
+                            <Select>
+                                {/* <Select.Option value={'2pasal'}>2 Pasal / Hari</Select.Option>
+                                <Select.Option value={'3pasal'}>3 Pasal / Hari</Select.Option> */}
+                                {dataReading?.map(item =>
+                                    <Select.Option value={item?.id}>{item?.name}</Select.Option>
+                                )}
                             </Select>
                         </Form.Item>
                         <Form.Item label={'Start Date'}
-                            name={'start_date'}
+                            name={'startDate'}
                             rules={[{
                                 required: true,
                                 message: 'Start Date is mandatory'
@@ -73,7 +103,7 @@ export default function AddMasterGroup({ onComplete }: AddGroupForm) {
                             <DatePicker />
                         </Form.Item>
                         <Form.Item label={'End Date'}
-                            name={'end_date'}
+                            name={'endDate'}
                             rules={[{
                                 required: true,
                                 message: 'Start Date is mandatory'
@@ -89,15 +119,15 @@ export default function AddMasterGroup({ onComplete }: AddGroupForm) {
                             <Input />
                         </Form.Item>
                         <Form.Item label={'CO - PIC'}
-                            name={'co_pic'}
+                            name={'coPic'}
                             rules={[{
                                 required: true,
                                 message: 'Please Add CO - PIC name.'
                             }]}>
                             <Input />
                         </Form.Item>
-                        <Form.Item name={'status'} label={'Status'}>
-                            <Select defaultValue={'active'}>
+                        <Form.Item initialValue={'active'} name={'status'} label={'Status'}>
+                            <Select  disabled>
                                 <Select.Option value={'active'}>Active</Select.Option>
                                 <Select.Option value={'non-active'}>Non - Active</Select.Option>
                             </Select>

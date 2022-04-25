@@ -6,4 +6,7 @@ import MasterAddress from './MasterAddress';
 import MasterChurch from './MasterChurch'
 import Admin from './Admin';
 import MasterGroup from "./MasterGroup";
-export { Login, Dashboard, MasterCountry, MasterBranch, MasterAddress, MasterChurch, Admin, MasterGroup };
+import AddReadingPlan from './MasterReading/add';
+import ReadingPlanList from './MasterReading/search';
+import UserList from './Users/search'
+export { Login, Dashboard, MasterCountry, MasterBranch, MasterAddress, MasterChurch, Admin, MasterGroup, AddReadingPlan, ReadingPlanList, UserList };

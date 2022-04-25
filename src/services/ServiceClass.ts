@@ -12,7 +12,6 @@ export default class ServiceClass {
                 mode: 'cors',
                 body: bodyData,
                 headers: {
-
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': "*"
                 }
@@ -24,7 +23,7 @@ export default class ServiceClass {
         }
     }
 
-    protected async callService(myUrl: string = '', method = "POST", body = {}) {
+    protected async callService(myUrl: string = '', method = "POST", body:any = {}, isForm: boolean = false) {
         const tokenJwt = localStorage.getItem(_TOKEN);
         try {
             if (!tokenJwt) throw _SESSION_EXPIRED;
@@ -48,7 +47,7 @@ export default class ServiceClass {
                     method,
                     body: bodyData,
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': isForm ? 'multipart/form-data' :'application/json',
                         'token': tokenJwt,
                     }
                 })

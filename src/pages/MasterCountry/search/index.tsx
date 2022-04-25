@@ -35,7 +35,6 @@ export default function MasterCountryListing() {
                     {<TableContext.Consumer>
                         {selectedData =>
                         (selectedCountry && selectedCountry?.id !== '' ?
-
                             <EditCountryForm data={selectedData} />
                             :
                             <AddCountryForm />)
